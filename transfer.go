@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var remoteAddsRegex = regexp.MustCompile("\b(.+@[^:]+):.*")
+var remoteAddsRegex = regexp.MustCompile("^(.+@[^:]+):.*")
 
 // TransferRemote will make remote transfer from to.
 // Remote address is expected if form user@address:location.
