@@ -26,7 +26,11 @@ func TransferRemote(from, to string, customPort int) {
 	}
 
 	// assume rsync
-	execCmd := fmt.Sprintf("rsync %s-zhr %s %s", fmt.Sprintf("-e 'ssh -p %d' ", customPort), from, to)
+	port := ""
+	if customPort != 0 {
+		port = fmt.Sprintf("-e 'ssh -p %d' ", customPort)
+	}
+	execCmd := fmt.Sprintf("rsync %s-zhr %s %s", port, from, to)
 
 	// check rsync
 	checkArgs := make([]string, 0)
@@ -39,7 +43,11 @@ func TransferRemote(from, to string, customPort int) {
 	err := exec.Command("ssh", checkArgs...).Run()
 	if err != nil {
 		// fallback to scp
-		execCmd = fmt.Sprintf("scp %s-r %s %s", fmt.Sprintf("-P %d ", customPort), from, to)
+		port := ""
+		if customPort != 0 {
+			port = fmt.Sprintf("-P %d ", customPort)
+		}
+		execCmd = fmt.Sprintf("scp %s-r %s %s", port, from, to)
 	}
 
 	cp := strings.FieldsFunc(execCmd, inQouteSplit())
