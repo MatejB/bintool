@@ -6,6 +6,7 @@
 // - add tests
 // - refactor failing logic
 // - make ability to remove/edit previous saved values
+// - ability to pass all inputs as argument
 package bintool
 
 import (
